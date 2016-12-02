@@ -1,4 +1,4 @@
-# Nette Propel 2 adapter
+# Nette Propel 2 integration
 
 ## installation
 
