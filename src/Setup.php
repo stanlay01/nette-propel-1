@@ -39,7 +39,7 @@ class Setup
 
         return [
             'adapter' => $config['adapter'],
-            'dsn' => "{$config['adapter']}:host={$config['host']};dbname={$config['dbname']}",
+            'dsn' => "{$config['adapter']}:host={$config['host']};dbname=".self::$dataSource,
             'user' => $config['user'],
             'password' => $config['password']
         ];
@@ -58,11 +58,11 @@ class Setup
                 ],
                 'runtime' => [
                     'defaultConnection' => self::$dataSource,
-                    'connections' => self::$dataSource
+                    'connections' => [self::$dataSource]
                 ],
                 'generator' => [
                     'defaultConnection' => self::$dataSource,
-                    'connections' => self::$dataSource
+                    'connections' => [self::$dataSource]
                 ]
             ]
         ];
@@ -77,11 +77,11 @@ class Setup
         self::parseConfig($appDir);
 
         $serviceContainer = Propel::getServiceContainer();
-        $serviceContainer->setAdapterClass(self::$database['dbname'], self::$database['adapter']);
+        $serviceContainer->setAdapterClass(self::$dataSource, self::$database['adapter']);
 
         $manager = new ConnectionManagerSingle();
         $manager->setConfiguration(self::getConfig());
 
-        $serviceContainer->setConnectionManager(self::$database['dbname'], $manager);
+        $serviceContainer->setConnectionManager(self::$dataSource, $manager);
     }
 }
