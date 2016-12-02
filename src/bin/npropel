@@ -1,0 +1,68 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../../../../autoload.php';
+
+$vendorBinDir = realpath(__DIR__ . '/../../../../bin');
+$appDir = realpath(__DIR__ . '/../../../../../app');
+$fakeConfigDir = realpath(__DIR__ . '/../FakeConfig.php');
+
+$modelDir = $appDir . '/model';
+$schemaDir = $appDir . '/schema';
+
+if ($argc == 1)
+{
+    system("$vendorBinDir/propel");
+    exit;
+}
+
+if ($argv[1] == 'help' || $argv[1] == 'test:prepare')
+{
+    array_shift($argv);
+    system("$vendorBinDir/propel " . implode(' ', $argv));
+    exit;
+}
+
+if (in_array('convert-conf', $argv) || in_array('config:convert-xml', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --output-dir=$schemaDir";
+}
+
+elseif (in_array('build', $argv) || in_array('model:build', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --schema-dir=$schemaDir --output-dir=$modelDir --disable-namespace-auto-package";
+}
+
+elseif (in_array('sql:build', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --schema-dir=$schemaDir --output-dir=$schemaDir/sql";
+}
+
+elseif (in_array('insert', $argv) || in_array('sql:insert', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --sql-dir=$schemaDir/sql";
+}
+
+elseif (in_array('reverse', $argv) || in_array('database:reverse', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --output-dir=$schemaDir/reversed-database";
+}
+
+elseif (in_array('diff', $argv) || in_array('migration:diff', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --schema-dir=$schemaDir --output-dir=$schemaDir/migrations --verbose";
+}
+
+elseif (in_array('down', $argv) || in_array('migration:down', $argv)
+    || in_array('migrate', $argv) || in_array('migration:migrate', $argv)
+    || in_array('status', $argv) || in_array('migration:status', $argv)
+    || in_array('up', $argv) || in_array('migration:up', $argv))
+{
+    $params = "--config-dir=$fakeConfigDir --output-dir=$schemaDir/migrations";
+}
+
+array_shift($argv);
+$args = implode(' ', $argv);
+system("$vendorBinDir/propel $args $params");
+
+exit;

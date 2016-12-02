@@ -1,0 +1,23 @@
+{
+    "name": "jzaplet/nette-propel",
+    "description": "Propel 2 integration for Nette Framework",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jiří Zapletal",
+            "email": "me@jirizapletal.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">= 5.6",
+        "nette/nette": "2.4.0",
+        "propel/propel": "2.0.0-alpha5"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    }
+}
