@@ -13,7 +13,7 @@
     "require": {
         "php": ">= 5.6",
         "nette/nette": "2.4.0",
-        "propel/propel": "2.0.0-alpha5"
+        "propel/propel": "~2.0@dev"
     },
     "autoload": {
         "classmap": [
