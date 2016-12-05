@@ -7,7 +7,7 @@ $vendorBinDir = realpath(__DIR__ . '/../../../bin');
 $appDir = realpath(__DIR__ . '/../../../../app');
 $fakeConfigDir = realpath(__DIR__ . '/../src/FakeConfig.php');
 
-$modelDir = $appDir . '/model';
+$modelDir = $appDir . '/model/propel';
 $schemaDir = $appDir . '/schema';
 
 if ($argc == 1)
