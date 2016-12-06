@@ -6,9 +6,6 @@
 
 ```
 "repositories": [{
-    "url": "https://github.com/jzaplet/nette-asset-loader",
-    "type": "git"
-},{
     "url": "https://github.com/jzaplet/nette-propel",
     "type": "git"
 }],
