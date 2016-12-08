@@ -39,7 +39,7 @@ class Setup
 
         return [
             'adapter' => $config['adapter'],
-            'dsn' => "{$config['adapter']}:host={$config['host']};dbname=".self::$dataSource,
+            'dsn' => "{$config['adapter']}:host={$config['host']};dbname=".self::$dataSource.";charset={$config['charset']}",
             'user' => $config['user'],
             'password' => $config['password']
         ];
