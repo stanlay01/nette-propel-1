@@ -10,12 +10,10 @@
         }
     ],
 
-    "minimum-stability": "alpha",
-
     "require": {
         "php": ">= 5.6",
         "nette/nette": "2.4.0@stable",
-        "propel/propel": "~2.0@alpha"
+        "propel/propel": "~2.0@dev"
     },
     "autoload": {
         "classmap": [
