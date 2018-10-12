@@ -18,6 +18,8 @@ class Setup
     private static $database;
     private static $dataSource;
 
+    private static $configLocal;
+
     public static function parseConfig($appDir)
     {
 
@@ -31,11 +33,14 @@ class Setup
 
         self::$dataSource = array_keys($config)[0];
         self::$database = $config[self::$dataSource];
+
+        \Tracy\Debugger::barDump(self::$dataSource);
+        self::$configLocal = $config;
     }
 
     public static function getConfig()
     {
-        $config = self::$database;
+        $config = self::$configLocal;
 
         return [
             'adapter' => $config['adapter'],
@@ -63,6 +68,9 @@ class Setup
                 'generator' => [
                     'defaultConnection' => self::$dataSource,
                     'connections' => [self::$dataSource]
+                ],
+                'reverse' =>[
+                    'connection' => self::$dataSource
                 ]
             ]
         ];
@@ -77,7 +85,7 @@ class Setup
         self::parseConfig($appDir);
 
         $serviceContainer = Propel::getServiceContainer();
-        $serviceContainer->setAdapterClass(self::$dataSource, self::$database['adapter']);
+        $serviceContainer->setAdapterClass(self::$dataSource, self::$configLocal['adapter']);
 
         $manager = new ConnectionManagerSingle();
         $manager->setConfiguration(self::getConfig());
